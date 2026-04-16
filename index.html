@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpportunitiesHub — Internships, Hackathons & More</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --bg4: #1c1c28;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0f0f8;
+    --muted: #8585a0;
+    --accent: #7c6dff;
+    --accent2: #a891ff;
+    --accent-glow: rgba(124,109,255,0.15);
+    --green: #2de0a5;
+    --green-bg: rgba(45,224,165,0.1);
+    --amber: #f0a500;
+    --amber-bg: rgba(240,165,0,0.1);
+    --red: #ff5f5f;
+    --red-bg: rgba(255,95,95,0.1);
+    --blue: #4a9eff;
+    --blue-bg: rgba(74,158,255,0.1);
+    --pink: #ff6eb4;
+    --pink-bg: rgba(255,110,180,0.1);
+    --teal: #00d4cc;
+    --teal-bg: rgba(0,212,204,0.1);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; gap: 2rem;
+    height: 60px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .logo span { color: var(--accent2); }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    flex: 1; position: relative; max-width: 480px;
+  }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; opacity: 0.4;
+    pointer-events: none;
+  }
+  #search {
+    width: 100%; height: 38px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0 12px 0 36px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #search:focus { border-color: var(--accent); }
+  #search::placeholder { color: var(--muted); }
+
+  .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .bookmark-btn {
+    background: none; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px 12px;
+    color: var(--muted); font-size: 13px; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s; white-space: nowrap;
+    font-family: var(--font-body);
+  }
+  .bookmark-btn:hover { border-color: var(--border2); color: var(--text); }
+  .bookmark-badge {
+    background: var(--accent); color: #fff;
+    border-radius: 20px; padding: 0 6px; font-size: 11px;
+    min-width: 18px; text-align: center;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1200px; margin: 0 auto;
+    padding: 3rem 2rem 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent2), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--muted); font-size: 16px; margin-bottom: 1.5rem;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .stat {
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 700; color: var(--text);
+  }
+  .stat-label { font-size: 13px; color: var(--muted); }
+
+  /* ── FILTER BAR ── */
+  .filters-wrap {
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 2rem 1.5rem;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .filter-label { font-size: 12px; color: var(--muted); margin-right: 4px; }
+  .chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px; color: var(--muted);
+    cursor: pointer; transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .chip:hover { border-color: var(--border2); color: var(--text); }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .divider { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+
+  /* ── MAIN LAYOUT ── */
+  .main { max-width: 1200px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 3rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+  .section-icon {
+    width: 32px; height: 32px; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 17px; font-weight: 700; letter-spacing: -0.3px;
+  }
+  .section-count {
+    font-size: 12px; color: var(--muted);
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2px 8px;
+    margin-left: auto;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--border);
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg2);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    position: relative;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .card:hover { background: var(--bg3); }
+  .card.bookmarked { background: var(--bg3); }
+
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .card-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge {
+    font-size: 11px; font-weight: 500;
+    padding: 3px 8px; border-radius: 20px;
+    letter-spacing: 0.2px; white-space: nowrap;
+  }
+
+  /* type colors */
+  .badge-internship   { background: var(--blue-bg);  color: var(--blue);  }
+  .badge-hackathon    { background: var(--pink-bg);  color: var(--pink);  }
+  .badge-job          { background: var(--green-bg); color: var(--green); }
+  .badge-research     { background: var(--teal-bg);  color: var(--teal);  }
+  .badge-scholarship  { background: var(--accent-glow); color: var(--accent2); }
+  .badge-workshop     { background: var(--amber-bg); color: var(--amber); }
+  .badge-competition  { background: var(--red-bg);   color: var(--red);   }
+  .badge-other        { background: var(--bg4);      color: var(--muted); }
+
+  .badge-remote { background: var(--green-bg); color: var(--green); }
+  .badge-onsite { background: var(--bg4);      color: var(--muted); }
+
+  /* bookmark toggle */
+  .bm-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); padding: 2px; flex-shrink: 0;
+    transition: color 0.15s; line-height: 1;
+  }
+  .bm-btn:hover { color: var(--accent2); }
+  .bm-btn.active { color: var(--accent2); }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 700;
+    line-height: 1.3; color: var(--text);
+    display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+
+  .card-org {
+    font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .org-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .card-desc {
+    font-size: 13px; color: var(--muted); line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+
+  .card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px; color: var(--muted);
+    background: var(--bg4); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2px 6px;
+  }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto; padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .deadline-wrap { display: flex; align-items: center; gap: 6px; }
+  .deadline-label { font-size: 11px; color: var(--muted); }
+  .deadline-value {
+    font-size: 12px; font-weight: 500;
+    padding: 3px 8px; border-radius: 20px;
+  }
+  .deadline-critical { background: var(--red-bg); color: var(--red); }
+  .deadline-soon     { background: var(--amber-bg); color: var(--amber); }
+  .deadline-normal   { background: var(--bg4); color: var(--muted); }
+  .deadline-missing  { background: var(--bg4); color: var(--muted); font-style: italic; }
+
+  .score-pill {
+    font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; gap: 3px;
+    color: var(--muted);
+  }
+  .score-pill.high { color: var(--accent2); }
+
+  .card-link-btn {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--accent);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .card-link-btn:hover { color: var(--accent2); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    grid-column: 1/-1;
+    padding: 3rem; text-align: center;
+    color: var(--muted); background: var(--bg2);
+  }
+  .empty-state h3 { font-size: 18px; color: var(--text); margin-bottom: 8px; font-family: var(--font-display); }
+
+  /* ── SKELETON ── */
+  .skeleton {
+    background: var(--bg2); border-radius: var(--radius);
+    overflow: hidden; position: relative;
+  }
+  .skeleton::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+  .skel-line { height: 14px; border-radius: 4px; background: var(--bg4); margin-bottom: 8px; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 16px; max-width: 600px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    transform: translateY(20px); transition: transform 0.2s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .modal-body { padding: 1.25rem 1.5rem; }
+  .modal-close {
+    background: none; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px;
+    cursor: pointer; color: var(--muted); margin-left: auto; flex-shrink: 0;
+    transition: all 0.15s; line-height: 1;
+  }
+  .modal-close:hover { border-color: var(--border2); color: var(--text); }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 19px; font-weight: 800; line-height: 1.2;
+  }
+  .modal-meta {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-bottom: 1.25rem;
+  }
+  .meta-item label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .meta-item span { font-size: 14px; color: var(--text); }
+  .modal-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .modal-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    border-radius: var(--radius-sm); padding: 10px 20px;
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    transition: opacity 0.15s; font-family: var(--font-body);
+  }
+  .modal-cta:hover { opacity: 0.85; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 300;
+    background: var(--bg4); border: 1px solid var(--border2);
+    border-radius: var(--radius); padding: 10px 16px;
+    font-size: 13px; color: var(--text);
+    transform: translateY(20px); opacity: 0;
+    transition: all 0.25s; pointer-events: none;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    header { padding: 0 1rem; }
+    .logo { font-size: 16px; }
+    .hero, .filters-wrap, .main { padding-left: 1rem; padding-right: 1rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .modal-meta { grid-template-columns: 1fr; }
+    .header-inner { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">Opp<span>Hub</span></div>
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="7" cy="7" r="5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
+      </svg>
+      <input id="search" type="text" placeholder="Search opportunities, orgs, tags…" autocomplete="off" />
+    </div>
+    <div class="header-actions">
+      <button class="bookmark-btn" id="bookmarkToggle" onclick="toggleBookmarkView()">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M3 2h10a1 1 0 011 1v11l-6-3-6 3V3a1 1 0 011-1z"/>
+        </svg>
+        Saved <span class="bookmark-badge" id="bmCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Find your next<br/><em>big opportunity</em></h1>
+  <p class="hero-sub">Internships, hackathons, jobs & research — curated from India's top institutions, updated daily.</p>
+  <div class="stats-bar" id="statsBar">
+    <div class="stat"><span class="stat-num" id="statTotal">—</span><span class="stat-label">opportunities</span></div>
+    <div class="stat"><span class="stat-num" id="statSoon">—</span><span class="stat-label">ending this week</span></div>
+    <div class="stat"><span class="stat-num" id="statSources">8</span><span class="stat-label">live sources</span></div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-wrap">
+  <span class="filter-label">Type:</span>
+  <button class="chip active" data-filter="type" data-value="">All</button>
+  <button class="chip" data-filter="type" data-value="internship">Internship</button>
+  <button class="chip" data-filter="type" data-value="hackathon">Hackathon</button>
+  <button class="chip" data-filter="type" data-value="job">Job</button>
+  <button class="chip" data-filter="type" data-value="research">Research</button>
+  <button class="chip" data-filter="type" data-value="scholarship">Scholarship</button>
+  <div class="divider"></div>
+  <span class="filter-label">Mode:</span>
+  <button class="chip active" data-filter="location" data-value="">All</button>
+  <button class="chip" data-filter="location" data-value="remote">Remote</button>
+  <button class="chip" data-filter="location" data-value="onsite">Onsite</button>
+  <div class="divider"></div>
+  <button class="chip active" data-filter="sort" data-value="score">Top Ranked</button>
+  <button class="chip" data-filter="sort" data-value="deadline">Ending Soon</button>
+  <button class="chip" data-filter="sort" data-value="latest">Latest</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ENDING SOON -->
+  <div class="section" id="sectionSoon">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--red-bg);">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--red)">
+          <path d="M8 1a7 7 0 110 14A7 7 0 018 1zm0 3a.75.75 0 00-.75.75v3.5c0 .199.079.39.22.53l2 2a.75.75 0 001.06-1.06L9 8.19V4.75A.75.75 0 008 4z"/>
+        </svg>
+      </div>
+      <span class="section-title">Ending Soon</span>
+      <span class="section-count" id="countSoon">0</span>
+    </div>
+    <div class="cards-grid" id="gridSoon"></div>
+  </div>
+
+  <!-- TRENDING -->
+  <div class="section" id="sectionTrending">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--accent-glow);">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--accent2)">
+          <path d="M1 12l4-4 3 3 4-5 3 2V14H1v-2z"/>
+        </svg>
+      </div>
+      <span class="section-title">Trending / Top Ranked</span>
+      <span class="section-count" id="countTrending">0</span>
+    </div>
+    <div class="cards-grid" id="gridTrending"></div>
+  </div>
+
+  <!-- ALL / FILTERED -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--teal-bg);">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--teal)">
+          <rect x="2" y="3" width="12" height="1.5" rx="0.75"/>
+          <rect x="2" y="7" width="8" height="1.5" rx="0.75"/>
+          <rect x="2" y="11" width="10" height="1.5" rx="0.75"/>
+        </svg>
+      </div>
+      <span class="section-title" id="allSectionTitle">All Opportunities</span>
+      <span class="section-count" id="countAll">0</span>
+    </div>
+    <div class="cards-grid" id="gridAll"></div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <div style="flex:1">
+        <div class="card-badges" id="mBadges" style="margin-bottom:8px;"></div>
+        <div class="modal-title" id="mTitle"></div>
+        <div class="card-org" style="margin-top:6px;" id="mOrg"></div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">
+        <svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.5">
+          <line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-meta" id="mMeta"></div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="modal-tags" id="mTags"></div>
+      <a class="modal-cta" id="mCTA" href="#" target="_blank" rel="noopener">
+        View Opportunity
+        <svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.5" fill="none">
+          <path d="M3 7h8M7 3l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+
+const SUPABASE_URL = "https://lbxeronzhkisxtbafazn.supabase.co";
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxieGVyb256aGtpc3h0YmFmYXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNDkyODgsImV4cCI6MjA5MTkyNTI4OH0.Q_Y-TLiWJTtrjbdj7e92WAdhH8xMgBWcpxTQSBvnHl0';
+
+
+let allData = [];
+let filters = { type: '', location: '', sort: 'score' };
+let bookmarks = JSON.parse(localStorage.getItem('opphub_bm') || '[]');
+let showingBookmarks = false;
+
+
+async function fetchData() {
+  showSkeletons();
+  try {
+    const url = `${SUPABASE_URL}/rest/v1/opportunities?select=*&order=score.desc&limit=200`;
+    const res = await fetch(url, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    allData = await res.json();
+    render();
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+function parseDeadline(str) {
+  if (!str || str === 'null' || str.trim() === '') return null;
+  // expect DD-MM-YYYY but handle common variants
+  const parts = str.split(/[-\/]/);
+  if (parts.length === 3) {
+    const [d, m, y] = parts;
+    const dt = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}T00:00:00`);
+    if (!isNaN(dt)) return dt;
+  }
+  // fallback
+  const dt = new Date(str);
+  return isNaN(dt) ? null : dt;
+}
+
+function daysLeft(str) {
+  const dt = parseDeadline(str);
+  if (!dt) return null;
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  return Math.ceil((dt - now) / 86400000);
+}
+
+function formatDeadline(str) {
+  const dt = parseDeadline(str);
+  if (!dt) return null;
+  return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function deadlineClass(str) {
+  const d = daysLeft(str);
+  if (d === null) return 'deadline-missing';
+  if (d < 0) return 'deadline-missing';
+  if (d <= 3) return 'deadline-critical';
+  if (d <= 7) return 'deadline-soon';
+  return 'deadline-normal';
+}
+
+function deadlineText(str) {
+  const d = daysLeft(str);
+  const fmt = formatDeadline(str);
+  if (d === null) return 'No deadline listed';
+  if (d < 0) return 'Expired';
+  if (d === 0) return 'Ends today';
+  if (d === 1) return 'Ends tomorrow';
+  if (d <= 7) return `${d}d left — ${fmt}`;
+  return fmt;
+}
+
+function applyFilters(data) {
+  let d = [...data];
+  if (filters.type)     d = d.filter(o => (o.type || '').toLowerCase() === filters.type);
+  if (filters.location) d = d.filter(o => (o.location || '').toLowerCase() === filters.location);
+  if (filters.sort === 'score')    d.sort((a,b) => (b.score||0) - (a.score||0));
+  if (filters.sort === 'deadline') d.sort((a,b) => {
+    const da = daysLeft(a.deadline), db = daysLeft(b.deadline);
+    if (da === null && db === null) return 0;
+    if (da === null) return 1;
+    if (db === null) return -1;
+    return da - db;
+  });
+  if (filters.sort === 'latest')   d.sort((a,b) => new Date(b.scraped_at||0) - new Date(a.scraped_at||0));
+  return d;
+}
+
+function applySearch(data) {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  if (!q) return data;
+  return data.filter(o =>
+    (o.title||'').toLowerCase().includes(q) ||
+    (o.organization||'').toLowerCase().includes(q) ||
+    (o.source||'').toLowerCase().includes(q) ||
+    (o.description||'').toLowerCase().includes(q) ||
+    (o.tags||[]).some(t => t.toLowerCase().includes(q))
+  );
+}
+
+
+function render() {
+  let data = showingBookmarks
+    ? allData.filter(o => bookmarks.includes(o.id))
+    : allData;
+
+  data = applySearch(data);
+  data = applyFilters(data);
+
+  // Stats
+  const soon = allData.filter(o => { const d = daysLeft(o.deadline); return d !== null && d >= 0 && d <= 7; });
+  document.getElementById('statTotal').textContent = allData.length;
+  document.getElementById('statSoon').textContent = soon.length;
+  document.getElementById('bmCount').textContent = bookmarks.length;
+
+  // Ending Soon section
+  const endingSoon = data.filter(o => { const d = daysLeft(o.deadline); return d !== null && d >= 0 && d <= 7; })
+                         .sort((a,b) => daysLeft(a.deadline) - daysLeft(b.deadline))
+                         .slice(0, 6);
+
+  const soonSection = document.getElementById('sectionSoon');
+  if (!showingBookmarks && !filters.type && !filters.location && !document.getElementById('search').value) {
+    soonSection.style.display = 'block';
+    document.getElementById('countSoon').textContent = endingSoon.length;
+    renderGrid('gridSoon', endingSoon);
+  } else {
+    soonSection.style.display = 'none';
+  }
+
+  // Trending section
+  const trending = [...data].sort((a,b) => (b.score||0)-(a.score||0)).slice(0, 6);
+  const trendingSection = document.getElementById('sectionTrending');
+  if (!showingBookmarks && !filters.type && !filters.location) {
+    trendingSection.style.display = 'block';
+    document.getElementById('countTrending').textContent = trending.length;
+    renderGrid('gridTrending', trending);
+  } else {
+    trendingSection.style.display = 'none';
+  }
+
+  // All section
+  document.getElementById('allSectionTitle').textContent = showingBookmarks ? 'Saved Opportunities' : 'All Opportunities';
+  document.getElementById('countAll').textContent = data.length;
+  renderGrid('gridAll', data);
+}
+
+function renderGrid(gridId, items) {
+  const grid = document.getElementById(gridId);
+  if (!items.length) {
+    grid.innerHTML = `<div class="empty-state">
+      <h3>No opportunities here yet</h3>
+      <p>Try adjusting your filters or check back after the next scrape run.</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = items.map(o => cardHTML(o)).join('');
+}
+
+// ──────────────────────────────────────────────────
+// CARD HTML — graceful for every missing field
+// ──────────────────────────────────────────────────
+function cardHTML(o) {
+  const type   = (o.type || 'other').toLowerCase();
+  const loc    = (o.location || 'onsite').toLowerCase();
+  const title  = o.title || 'Untitled Opportunity';
+  const org    = o.organization || o.source || 'Unknown Organisation';
+  const desc   = o.description || '';
+  const tags   = Array.isArray(o.tags) ? o.tags.filter(Boolean) : [];
+  const score  = o.score || 0;
+  const link   = o.link || '#';
+  const isBM   = bookmarks.includes(o.id);
+
+  const dlClass = deadlineClass(o.deadline);
+  const dlText  = deadlineText(o.deadline);
+  const expired = daysLeft(o.deadline) !== null && daysLeft(o.deadline) < 0;
+
+  const orgColors = {
+    'IIT Roorkee':'#7c6dff','IIT Delhi':'#4a9eff','IISER Pune':'#2de0a5',
+    'CSIR-NBRI':'#00d4cc','ICAR':'#2de0a5','Devfolio':'#ff6eb4',
+    'Unstop':'#f0a500','Zoho':'#4a9eff','Infosys':'#2de0a5',
+    'Apprenticeship India':'#ff5f5f'
+  };
+  const dotColor = orgColors[org] || orgColors[o.source] || '#8585a0';
+
+  const tagsHTML = tags.slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+  const descHTML = desc ? `<div class="card-desc">${esc(desc)}</div>` : '';
+
+  return `
+  <div class="card${isBM?' bookmarked':''}" data-id="${o.id}" onclick="openModal('${o.id}')">
+    <div class="card-top">
+      <div class="card-badges">
+        <span class="badge badge-${type}">${capitalise(type)}</span>
+        <span class="badge badge-${loc}">${capitalise(loc)}</span>
+      </div>
+      <button class="bm-btn${isBM?' active':''}" onclick="toggleBookmark(event,'${o.id}')" title="${isBM?'Remove bookmark':'Bookmark'}">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="${isBM?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 2h10a1 1 0 011 1v11l-6-3-6 3V3a1 1 0 011-1z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="card-title">${esc(title)}</div>
+
+    <div class="card-org">
+      <span class="org-dot" style="background:${dotColor}"></span>
+      ${esc(org)}
+    </div>
+
+    ${descHTML}
+
+    ${tagsHTML ? `<div class="card-tags">${tagsHTML}</div>` : ''}
+
+    <div class="card-footer">
+      <div class="deadline-wrap">
+        <span class="deadline-label">Deadline</span>
+        <span class="deadline-value ${dlClass}">${expired?'Expired':dlText}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="score-pill${score>50?' high':''}">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="5,1 6.5,3.5 9.5,4 7.5,6 8,9 5,7.5 2,9 2.5,6 0.5,4 3.5,3.5"/></svg>
+          ${score}
+        </span>
+        <a class="card-link-btn" href="${esc(link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          View
+          <svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ──────────────────────────────────────────────────
+// MODAL
+// ──────────────────────────────────────────────────
+function openModal(id) {
+  const o = allData.find(x => x.id === id);
+  if (!o) return;
+
+  const type = (o.type || 'other').toLowerCase();
+  const loc  = (o.location || 'onsite').toLowerCase();
+  const tags = Array.isArray(o.tags) ? o.tags.filter(Boolean) : [];
+  const dlText = deadlineText(o.deadline);
+  const dlClass = deadlineClass(o.deadline);
+
+  document.getElementById('mBadges').innerHTML = `
+    <span class="badge badge-${type}">${capitalise(type)}</span>
+    <span class="badge badge-${loc}">${capitalise(loc)}</span>`;
+
+  document.getElementById('mTitle').textContent = o.title || 'Untitled Opportunity';
+
+  document.getElementById('mOrg').innerHTML = `
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2">
+      <rect x="2" y="6" width="10" height="7" rx="1"/><path d="M5 6V4a2 2 0 014 0v2"/>
+    </svg>
+    ${esc(o.organization || o.source || 'Unknown')}`;
+
+  document.getElementById('mMeta').innerHTML = `
+    <div class="meta-item">
+      <label>Deadline</label>
+      <span class="deadline-value ${dlClass}" style="display:inline-block;">${dlText}</span>
+    </div>
+    <div class="meta-item">
+      <label>Source</label>
+      <span>${esc(o.source || 'Unknown')}</span>
+    </div>
+    <div class="meta-item">
+      <label>Score</label>
+      <span>${o.score || 0} / 100</span>
+    </div>
+    <div class="meta-item">
+      <label>Scraped</label>
+      <span>${o.scraped_at ? new Date(o.scraped_at).toLocaleDateString('en-IN') : 'Unknown'}</span>
+    </div>`;
+
+  document.getElementById('mDesc').textContent =
+    o.description && o.description.trim().length > 0
+      ? o.description
+      : 'No description available for this opportunity. Click the link below to view full details on the source website.';
+
+  document.getElementById('mTags').innerHTML = tags.length
+    ? tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')
+    : '<span style="font-size:13px;color:var(--muted);font-style:italic;">No tags detected</span>';
+
+  const cta = document.getElementById('mCTA');
+  if (o.link && o.link !== '#') {
+    cta.href = o.link;
+    cta.style.display = 'inline-flex';
+  } else {
+    cta.style.display = 'none';
+  }
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('modal').classList.remove('open');
+});
+
+// ──────────────────────────────────────────────────
+// BOOKMARKS
+// ──────────────────────────────────────────────────
+function toggleBookmark(e, id) {
+  e.stopPropagation();
+  const idx = bookmarks.indexOf(id);
+  if (idx === -1) {
+    bookmarks.push(id);
+    showToast('Saved!');
+  } else {
+    bookmarks.splice(idx, 1);
+    showToast('Removed from saved');
+  }
+  localStorage.setItem('opphub_bm', JSON.stringify(bookmarks));
+  document.getElementById('bmCount').textContent = bookmarks.length;
+  // update button in grid
+  document.querySelectorAll(`[data-id="${id}"]`).forEach(card => {
+    const btn = card.querySelector('.bm-btn');
+    const svg = card.querySelector('.bm-btn svg');
+    if (btn && svg) {
+      const isBM = bookmarks.includes(id);
+      btn.classList.toggle('active', isBM);
+      svg.setAttribute('fill', isBM ? 'currentColor' : 'none');
+      card.classList.toggle('bookmarked', isBM);
+    }
+  });
+}
+
+function toggleBookmarkView() {
+  showingBookmarks = !showingBookmarks;
+  document.getElementById('bookmarkToggle').style.color =
+    showingBookmarks ? 'var(--accent2)' : '';
+  render();
+}
+
+// ──────────────────────────────────────────────────
+// FILTER CHIPS
+// ──────────────────────────────────────────────────
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    const key = this.dataset.filter;
+    const val = this.dataset.value;
+    filters[key] = val;
+    document.querySelectorAll(`.chip[data-filter="${key}"]`).forEach(c => c.classList.remove('active'));
+    this.classList.add('active');
+    render();
+  });
+});
+
+document.getElementById('search').addEventListener('input', () => render());
+
+// ──────────────────────────────────────────────────
+// SKELETONS + ERROR
+// ──────────────────────────────────────────────────
+function showSkeletons() {
+  const skels = Array(6).fill(0).map(() => `
+    <div class="card skeleton" style="pointer-events:none;min-height:160px;">
+      <div class="skel-line" style="width:40%;"></div>
+      <div class="skel-line" style="width:80%;height:18px;"></div>
+      <div class="skel-line" style="width:55%;"></div>
+      <div class="skel-line" style="width:70%;margin-top:8px;"></div>
+    </div>`).join('');
+  ['gridSoon','gridTrending','gridAll'].forEach(id => {
+    document.getElementById(id).innerHTML = skels;
+  });
+}
+
+function showError(msg) {
+  const errHTML = `<div class="empty-state" style="grid-column:1/-1;">
+    <h3>Could not load opportunities</h3>
+    <p style="margin-bottom:1rem;">${esc(msg)}</p>
+    <p style="font-size:12px;color:var(--muted);">Make sure your Supabase URL and key are set in the config section of this file.</p>
+  </div>`;
+  ['gridSoon','gridTrending','gridAll'].forEach(id => {
+    document.getElementById(id).innerHTML = errHTML;
+  });
+}
+
+// ──────────────────────────────────────────────────
+// TOAST
+// ──────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ──────────────────────────────────────────────────
+// UTILS
+// ──────────────────────────────────────────────────
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function capitalise(s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
+}
+
+// ──────────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────────
+fetchData();
+</script>
+</body>
+</html>
